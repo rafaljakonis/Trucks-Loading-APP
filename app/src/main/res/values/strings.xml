@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Trucks Load</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="next">Dalej</string>
+    <string name="permission_required">Wymagane uprawnienia</string>
+    <string name="permission_description">Bacon ipsum dolor amet jerky tenderloin frankfurter short loin ham hock bresaola salami. Ground round jerky beef pork belly shank salami fatback andouille, rump short ribs jowl meatball turkey leberkas.</string>
+</resources>
