@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".PermissionFragment">
+    tools:context=".ui.permission.PermissionFragment">
 
 
     <Button
@@ -17,6 +17,7 @@
         android:text="@string/next"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
@@ -24,11 +25,10 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="48dp"
-        android:textAlignment="center"
-        android:textColor="@color/black"
-        android:textStyle="italic"
-        android:textSize="16sp"
         android:text="@string/permission_description"
+        android:textAlignment="center"
+        android:textSize="16sp"
+        android:textStyle="italic"
         app:layout_constraintBottom_toTopOf="@+id/continue_button"
         app:layout_constraintEnd_toEndOf="@+id/continue_button"
         app:layout_constraintStart_toStartOf="@+id/continue_button" />
@@ -38,11 +38,11 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
+        android:text="@string/permission_required"
         android:textAlignment="center"
         android:textColor="@color/red"
-        android:textStyle="bold"
         android:textSize="26sp"
-        android:text="@string/permission_required"
+        android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/textView"
         app:layout_constraintEnd_toEndOf="@+id/textView"
         app:layout_constraintHorizontal_bias="0.0"
