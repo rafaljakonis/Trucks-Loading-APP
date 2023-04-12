@@ -19,10 +19,15 @@ class BottomSheet() : BottomSheetDialogFragment() {
     ): View {
         binding = FragmentBottomSheetBinding.inflate(inflater, container, false)
 
-        binding.confirm.setOnClickListener {
+        binding.confirmButton.setOnClickListener {
             findNavController().navigate(R.id.action_taskListFragment_to_taskDetailsFragment)
             dismiss()
         }
+
+        binding.cancelButton.setOnClickListener {
+            dismiss()
+        }
+
         return binding.root
     }
 

@@ -10,8 +10,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.trucksload.R
 import com.example.trucksload.data.Element
 import com.example.trucksload.data.Task
-import com.example.trucksload.databinding.FragmentTaskElementBinding
-import com.example.trucksload.ui.task.TaskListFragment
 import com.example.trucksload.viewmodels.SharedViewModel
 import com.google.android.libraries.places.api.model.AutocompletePrediction
 import com.google.android.material.card.MaterialCardView
@@ -24,6 +22,13 @@ class TaskAdapter(private val sharedViewModel: SharedViewModel) :
         Task("123", "123", "1231", listOf<Element>(Element("123", "123", "123"))),
         Task("123", "123", "1231", listOf<Element>(Element("123", "123", "123"))),
         Task("123", "123", "1231", listOf<Element>(Element("123", "123", "123"))),
+        Task("123", "123", "1231", listOf<Element>(Element("123", "123", "123"))),
+        Task("123", "123", "1231", listOf<Element>(Element("123", "123", "123"))),
+        Task("123", "123", "1231", listOf<Element>(Element("123", "123", "123"))),
+        Task("123", "123", "1231", listOf<Element>(Element("123", "123", "123"))),
+        Task("123", "123", "1231", listOf<Element>(Element("123", "123", "123"))),
+        Task("123", "123", "1231", listOf<Element>(Element("123", "123", "123"))),
+        Task("123", "123", "1231", listOf<Element>(Element("123", "123", "123"))),
         Task("123", "123", "1231", listOf<Element>(Element("123", "123", "123")))
     )
     var onItemClick: ((Task) -> Unit)? = null
@@ -33,7 +38,7 @@ class TaskAdapter(private val sharedViewModel: SharedViewModel) :
         val taskCard: MaterialCardView
 
         init {
-            nameTextView = view.findViewById(R.id.test_id)
+            nameTextView = view.findViewById(R.id.task_name)
             taskCard = view.findViewById(R.id.task_card)
         }
     }
@@ -46,7 +51,7 @@ class TaskAdapter(private val sharedViewModel: SharedViewModel) :
     }
 
     override fun onBindViewHolder(myViewHolder: MyViewHolder, position: Int) {
-        myViewHolder.nameTextView.text = taskList[position].name
+        myViewHolder.nameTextView.text = "Zamówienie ${taskList[position].name}"
         myViewHolder.taskCard.setOnClickListener {
             onItemClick?.invoke(taskList[position])
         }

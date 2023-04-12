@@ -4,7 +4,17 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="next">Dalej</string>
     <string name="login">Login</string>
+    <string name="sign_in">Zaloguj się</string>
+    <string name="remember_me">Zapamiętaj mnie</string>
+
     <string name="password">Hasło</string>
+    <string name="accept">Akceptuj</string>
+    <string name="confirm">Potwierdzenie</string>
+    <string name="current_order">Wybrane zlecenie</string>
+    <string name="current_orders">Aktualne zlecenia</string>
+    <string name="cancel">Anuluj</string>
+    <string name="refresh">Odśwież</string>
+    <string name="sign_out">Wyloguj się</string>
     <string name="permission_required">Wymagane uprawnienia</string>
     <string name="permission_description">Bacon ipsum dolor amet jerky tenderloin frankfurter short loin ham hock bresaola salami. Ground round jerky beef pork belly shank salami fatback andouille, rump short ribs jowl meatball turkey leberkas.</string>
 </resources>
