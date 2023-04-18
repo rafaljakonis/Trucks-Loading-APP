@@ -19,17 +19,18 @@ import kotlinx.coroutines.flow.StateFlow
 class TaskAdapter(private val sharedViewModel: SharedViewModel) :
     RecyclerView.Adapter<TaskAdapter.MyViewHolder>() {
     private val taskList = listOf<Task>(
-        Task("123", "123", "1231", listOf<Element>(Element("123", "123", "123"))),
-        Task("123", "123", "1231", listOf<Element>(Element("123", "123", "123"))),
-        Task("123", "123", "1231", listOf<Element>(Element("123", "123", "123"))),
-        Task("123", "123", "1231", listOf<Element>(Element("123", "123", "123"))),
-        Task("123", "123", "1231", listOf<Element>(Element("123", "123", "123"))),
-        Task("123", "123", "1231", listOf<Element>(Element("123", "123", "123"))),
-        Task("123", "123", "1231", listOf<Element>(Element("123", "123", "123"))),
-        Task("123", "123", "1231", listOf<Element>(Element("123", "123", "123"))),
-        Task("123", "123", "1231", listOf<Element>(Element("123", "123", "123"))),
-        Task("123", "123", "1231", listOf<Element>(Element("123", "123", "123"))),
-        Task("123", "123", "1231", listOf<Element>(Element("123", "123", "123")))
+        Task(1,
+            123,
+            "1231",
+            "sdfsdf",
+            "2024-01-12",
+            false,
+            listOf<Element>(
+                Element("123", "123", 123,"TEST", false),
+                Element("123", "123", 123,"TEST", false),
+                Element("123", "123", 123,"TEST", false),
+                Element("123", "123", 123,"TEST", false)
+            )),
     )
     var onItemClick: ((Task) -> Unit)? = null
 
@@ -51,7 +52,7 @@ class TaskAdapter(private val sharedViewModel: SharedViewModel) :
     }
 
     override fun onBindViewHolder(myViewHolder: MyViewHolder, position: Int) {
-        myViewHolder.nameTextView.text = "Zamówienie ${taskList[position].name}"
+        myViewHolder.nameTextView.text = "Zamówienie ${taskList[position].id}"
         myViewHolder.taskCard.setOnClickListener {
             onItemClick?.invoke(taskList[position])
         }

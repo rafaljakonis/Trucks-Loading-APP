@@ -10,6 +10,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.trucksload.R
 import com.example.trucksload.databinding.FragmentLoginScreenBinding
 import com.example.trucksload.viewmodels.SharedViewModel
+import kotlinx.coroutines.delay
 
 class LoginScreenFragment : Fragment() {
 
@@ -28,5 +29,15 @@ class LoginScreenFragment : Fragment() {
         }
 
         return binding.root
+    }
+
+    private fun dropProgressBar(): Unit
+    {
+        binding.progressBar.visibility = View.GONE
+    }
+
+    private fun showProgressBar(): Unit
+    {
+        binding.progressBar.visibility = View.VISIBLE
     }
 }

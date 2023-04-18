@@ -8,4 +8,7 @@ object Constants {
     const val PREFERENCE_FIRST_LAUNCH = "firstLaunch"
 
     const val API_LINK = "http://android-api.local/"
+
+    const val DATABASE_NAME = "truck_load"
+    const val DATABASE_TABLE_USER = "user"
 }
