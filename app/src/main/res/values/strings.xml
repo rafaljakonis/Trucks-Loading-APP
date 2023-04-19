@@ -17,4 +17,7 @@
     <string name="sign_out">Wyloguj się</string>
     <string name="permission_required">Wymagane uprawnienia</string>
     <string name="permission_description">Bacon ipsum dolor amet jerky tenderloin frankfurter short loin ham hock bresaola salami. Ground round jerky beef pork belly shank salami fatback andouille, rump short ribs jowl meatball turkey leberkas.</string>
+
+    <string name="login_wrong_login_pattern">Login musi zawierać przynajmniej 5 znaków</string>
+    <string name="login_wrong_password_pattern">Hasło musi zawierać przynajmniej 5 znaków</string>
 </resources>

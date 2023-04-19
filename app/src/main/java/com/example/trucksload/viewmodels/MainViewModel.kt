@@ -29,6 +29,7 @@ class MainViewModel @Inject constructor(
 
 
     //API
+    var userResponse: MutableLiveData<NetworkResult<PutAwayResponse>> = MutableLiveData()
     var activeOrders: MutableLiveData<NetworkResult<PutAwayResponse>> = MutableLiveData()
 
     fun getActiveOrders() = viewModelScope.launch {
@@ -42,7 +43,7 @@ class MainViewModel @Inject constructor(
                 val response = repository.remote.getOrders()
                 activeOrders.value = handleResponse(response) as NetworkResult<PutAwayResponse>
 
-                val foodJoke = activeOrders.value!!.data
+                val activeOrders = activeOrders.value!!.data
             } catch (e: Exception) {
                 activeOrders.value = NetworkResult.Error("Recipes not found.")
             }

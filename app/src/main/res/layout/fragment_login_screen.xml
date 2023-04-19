@@ -64,6 +64,7 @@
                     app:counterMaxLength="10">
 
                     <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/loginInputData"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:maxLength="10" />
@@ -82,6 +83,7 @@
                     app:counterMaxLength="20">
 
                     <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/passwordInputData"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="textPassword"
