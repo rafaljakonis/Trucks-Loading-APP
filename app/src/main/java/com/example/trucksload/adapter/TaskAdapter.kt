@@ -1,20 +1,15 @@
 package com.example.trucksload.adapter
 
 import android.view.LayoutInflater
-import android.view.TextureView
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.trucksload.R
-import com.example.trucksload.data.Element
-import com.example.trucksload.data.Task
+import com.example.trucksload.data.model.Element
+import com.example.trucksload.data.model.Task
 import com.example.trucksload.viewmodels.SharedViewModel
-import com.google.android.libraries.places.api.model.AutocompletePrediction
 import com.google.android.material.card.MaterialCardView
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
 
 class TaskAdapter(private val sharedViewModel: SharedViewModel) :
     RecyclerView.Adapter<TaskAdapter.MyViewHolder>() {

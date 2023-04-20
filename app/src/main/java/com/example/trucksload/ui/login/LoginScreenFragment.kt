@@ -15,7 +15,6 @@ import com.example.trucksload.databinding.FragmentLoginScreenBinding
 import com.example.trucksload.viewmodels.MainViewModel
 import com.example.trucksload.viewmodels.SharedViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.delay
 
 @AndroidEntryPoint
 class LoginScreenFragment : Fragment() {
@@ -31,14 +30,12 @@ class LoginScreenFragment : Fragment() {
     ): View {
         _binding = FragmentLoginScreenBinding.inflate(layoutInflater, container, false)
 
-//        binding.mainViewModel = mainViewModel
-        try {
-            mainViewModel.getActiveOrders()
-            mainViewModel.activeOrders.observe(viewLifecycleOwner) { response ->
-                Log.i("Test", response.data.toString())
-            }
-        } catch (e: Exception) {
-            Log.i("Test", e.toString())
+        binding.lifecycleOwner = this
+        binding.mainViewModel = mainViewModel
+
+        mainViewModel.getActiveOrders()
+        mainViewModel.activeOrders.observe(viewLifecycleOwner) { response ->
+            Log.i("Test", response.data.toString())
         }
 
 
@@ -49,13 +46,11 @@ class LoginScreenFragment : Fragment() {
         return binding.root
     }
 
-    private fun dropProgressBar(): Unit
-    {
+    private fun dropProgressBar(): Unit {
         binding.progressBar.visibility = View.GONE
     }
 
-    private fun showProgressBar(): Unit
-    {
+    private fun showProgressBar(): Unit {
         binding.progressBar.visibility = View.VISIBLE
     }
 }

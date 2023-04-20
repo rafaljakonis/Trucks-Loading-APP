@@ -1,4 +1,4 @@
-package com.example.trucksload.data
+package com.example.trucksload.data.database
 
 import android.os.Parcelable
 import androidx.room.Entity

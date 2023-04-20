@@ -1,4 +1,4 @@
-package com.example.trucksload.data
+package com.example.trucksload.data.model
 
 data class Element(
     val name: String,

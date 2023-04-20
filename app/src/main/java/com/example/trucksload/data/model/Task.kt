@@ -1,6 +1,4 @@
-package com.example.trucksload.data
-
-import kotlinx.parcelize.Parcelize
+package com.example.trucksload.data.model
 
 data class Task(
     val id: Int,

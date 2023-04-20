@@ -10,7 +10,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.trucksload.data.PutAwayResponse
 import com.example.trucksload.data.Repository
-import com.example.trucksload.data.Task
 import com.example.trucksload.util.NetworkResult
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch

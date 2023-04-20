@@ -1,8 +1,7 @@
-package com.example.trucksload.data
+package com.example.trucksload.data.database
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
-import androidx.room.TypeConverters
 
 @Database(
     entities = [TruckLoadEntity::class],
