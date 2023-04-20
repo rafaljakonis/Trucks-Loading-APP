@@ -1,5 +1,6 @@
 package com.example.trucksload.ui.login
 
+import android.content.res.ColorStateList
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -8,6 +9,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
+import androidx.core.content.ContextCompat
+import androidx.core.content.ContextCompat.getColor
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -35,6 +38,8 @@ class LoginScreenFragment : Fragment() {
     ): View {
         _binding = FragmentLoginScreenBinding.inflate(layoutInflater, container, false)
 
+        watchFormState()
+
         binding.loginButton.setOnClickListener {
             val login: String = binding.loginInputData.text.toString()
             val password: String = binding.passwordInputData.text.toString()
@@ -49,26 +54,37 @@ class LoginScreenFragment : Fragment() {
         return binding.root
     }
 
-
     private fun watchFormState(): Unit {
-        loginViewModel.loginFormState.observe(viewLifecycleOwner) { formState ->
-            when {
-                formState.isDataValid -> {
+        loginViewModel.loginFormState.observe(viewLifecycleOwner, Observer {
+            val loginState = it ?: return@Observer
 
-                }
-                formState.usernameError != null -> {
-                    binding.loginInput.error = getString(formState.usernameError)
-                }
-                formState.passwordError != null -> {
-                    binding.passwordInput.error = getString(formState.passwordError)
-                }
+            if (loginState.usernameError != null) {
+                binding.loginInput.error = getString(loginState.usernameError)
             }
+//            when {
+//                formState.isDataValid -> {
+//                    binding.loginButton.setBackgroundColor(
+//                        getColor(
+//                            requireContext(),
+//                            R.color.blue_700
+//                        )
+//                    )
+//                }
+//
+//                formState.usernameError != null -> {
+//                    binding.loginInput.error = getString(formState.usernameError)
+//                }
+//
+//                formState.passwordError != null -> {
+//                    binding.passwordInput.error = getString(formState.passwordError)
+//                }
+//            }
 //            login.isEnabled = loginState.isDataValid
 //            if (loginState.isDataValid) {
 //                login.backgroundTintList =
 //                    ColorStateList.valueOf(getColor(R.color.dark_primary))
 //            }
-        }
+        })
 
         binding.loginInputData.afterTextChanged {
             loginViewModel.loginDataChanged(

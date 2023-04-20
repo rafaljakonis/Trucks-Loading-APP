@@ -104,8 +104,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:padding="15dp"
+                    android:enabled="false"
                     android:text="@string/sign_in"
-                    android:backgroundTint="@color/blue_700"
+                    android:backgroundTint="@color/blue_200"
                     android:textSize="18sp" />
             </LinearLayout>
 
