@@ -44,7 +44,7 @@
         android:background="@color/gray" />
 
     <TextView
-        android:id="@+id/track_code"
+        android:id="@+id/task_name"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/nav_line"
@@ -55,10 +55,10 @@
         android:layout_marginEnd="16dp" />
 
     <TextView
-        android:id="@+id/gate"
+        android:id="@+id/task_description"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/track_code"
+        app:layout_constraintTop_toBottomOf="@+id/task_name"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginStart="16dp"
@@ -66,10 +66,10 @@
         android:layout_marginEnd="16dp" />
 
     <TextView
-        android:id="@+id/alley"
+        android:id="@+id/task_location"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/gate"
+        app:layout_constraintTop_toBottomOf="@+id/task_description"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginStart="16dp"
@@ -77,51 +77,21 @@
         android:layout_marginEnd="16dp" />
 
     <TextView
-        android:id="@+id/time"
+        android:id="@+id/task_status"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/alley"
+        app:layout_constraintTop_toBottomOf="@+id/task_location"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginStart="16dp"
         android:layout_marginTop="4dp"
         android:layout_marginEnd="16dp" />
-
-    <View
-        android:id="@+id/bottom_line"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/time"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="12dp"
-        android:layout_marginEnd="16dp"
-        android:background="@color/gray" />
-
-    <TextView
-        android:id="@+id/second_confirm_text"
-        app:layout_constraintBottom_toTopOf="@+id/confirm"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/bottom_line"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="10dp"
-        android:gravity="center"
-        android:text="@string/next"
-        android:textColor="@color/red"
-        android:textSize="15sp"
-        android:visibility="invisible" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/confirm_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/second_confirm_text"
+        app:layout_constraintTop_toBottomOf="@+id/task_status"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"

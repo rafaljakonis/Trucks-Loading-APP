@@ -1,7 +1,5 @@
 package com.example.trucksload.data.database
 
-import com.example.trucksload.data.TruckLoadDao
-import com.example.trucksload.data.TruckLoadEntity
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 

@@ -6,10 +6,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.example.trucksload.R
+import com.example.trucksload.data.model.Task
 import com.example.trucksload.databinding.FragmentBottomSheetBinding
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
-class BottomSheet() : BottomSheetDialogFragment() {
+class BottomSheet(
+    private val pickedTask: Task
+) : BottomSheetDialogFragment() {
 
     private lateinit var binding: FragmentBottomSheetBinding
 
@@ -18,6 +21,8 @@ class BottomSheet() : BottomSheetDialogFragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentBottomSheetBinding.inflate(inflater, container, false)
+
+        setUpBottomSheetDetails()
 
         binding.confirmButton.setOnClickListener {
             findNavController().navigate(R.id.action_taskListFragment_to_taskDetailsFragment)
@@ -30,8 +35,10 @@ class BottomSheet() : BottomSheetDialogFragment() {
 
         return binding.root
     }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    private fun setUpBottomSheetDetails() {
+        binding.taskName.text = "Zadanie ${pickedTask.id}"
+        binding.taskDescription.text = pickedTask.description
+        binding.taskLocation.text = pickedTask.location
+        binding.taskStatus.text = pickedTask.status.toString()
     }
 }

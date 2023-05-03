@@ -11,6 +11,7 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/loginConstraintLayout"
         tools:context=".ui.login.LoginScreenFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -35,6 +36,7 @@
 
             <com.google.android.material.progressindicator.LinearProgressIndicator
                 android:id="@+id/progressBar"
+                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:indeterminate="true" />
@@ -61,13 +63,14 @@
                     android:layout_marginBottom="12dp"
                     android:hint="@string/login"
                     app:counterEnabled="true"
-                    app:counterMaxLength="10">
+                    app:counterMaxLength="20">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/loginInputData"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:maxLength="10" />
+                        android:text="rafal.jakonis"
+                        android:maxLength="20" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -87,6 +90,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="textPassword"
+                        android:text="dupa2137"
                         android:maxLength="20" />
 
                 </com.google.android.material.textfield.TextInputLayout>
@@ -104,9 +108,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:padding="15dp"
-                    android:enabled="false"
+                    android:textColor="@color/white"
                     android:text="@string/sign_in"
-                    android:backgroundTint="@color/blue_200"
+                    android:backgroundTint="@color/gray"
                     android:textSize="18sp" />
             </LinearLayout>
 

@@ -2,7 +2,7 @@ package com.example.trucksload.di
 
 import android.content.Context
 import androidx.room.Room
-import com.example.trucksload.data.TruckLoadDataBase
+import com.example.trucksload.data.database.TruckLoadDataBase
 import com.example.trucksload.util.Constants.DATABASE_NAME
 import dagger.Module
 import dagger.Provides

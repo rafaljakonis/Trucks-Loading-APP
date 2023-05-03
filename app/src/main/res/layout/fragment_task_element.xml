@@ -6,7 +6,7 @@
     <data>
         <variable
             name="taskEntity"
-            type="com.example.trucksload.data.Task" />
+            type="com.example.trucksload.data.model.Task" />
     </data>
 
     <com.google.android.material.card.MaterialCardView

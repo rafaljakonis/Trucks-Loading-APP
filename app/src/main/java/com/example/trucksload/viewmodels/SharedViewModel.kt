@@ -18,6 +18,10 @@ class SharedViewModel @Inject constructor(
 
     val app = application
 
+    var chipSubstitute: Boolean = false
+    var chipLoading: Boolean = false
+    var chipPutAway: Boolean = false
+
     fun saveFirstLaunch(firstLaunch: Boolean) {
         viewModelScope.launch(Dispatchers.IO) {
             dataStoreRepository.saveFirstLaunch(firstLaunch)

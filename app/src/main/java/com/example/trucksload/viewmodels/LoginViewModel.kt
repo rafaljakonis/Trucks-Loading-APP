@@ -11,15 +11,10 @@ class LoginViewModel() : ViewModel() {
     private val _loginForm = MutableLiveData<LoginFormState>()
     val loginFormState: LiveData<LoginFormState> = _loginForm
 
-
     fun loginDataChanged(username: String, password: String) {
         if (!isUserNameValid(username)) {
             _loginForm.value = LoginFormState(usernameError = R.string.login_wrong_login_pattern)
-        } else {
-            _loginForm.value = LoginFormState(usernameError = null)
-        }
-
-        if (!isPasswordValid(password)) {
+        } else if (!isPasswordValid(password)) {
             _loginForm.value = LoginFormState(passwordError = R.string.login_wrong_password_pattern)
         } else {
             _loginForm.value = LoginFormState(isDataValid = true)
