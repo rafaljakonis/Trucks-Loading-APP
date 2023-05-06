@@ -9,10 +9,13 @@ import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.example.trucksload.data.PutAwayResponse
 import com.example.trucksload.data.Repository
+import com.example.trucksload.data.model.Task
 import com.example.trucksload.data.model.User
 import com.example.trucksload.data.model.UserToAuthenticate
+import com.example.trucksload.data.network.model.BooleanResult
+import com.example.trucksload.data.network.model.AssignOrderToUser
+import com.example.trucksload.data.network.model.OrderActionRequest
 import com.example.trucksload.util.NetworkResult
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
@@ -33,21 +36,31 @@ class MainViewModel @Inject constructor(
 
     //API
     var authenticateUserResponse: MutableLiveData<NetworkResult<User>> = MutableLiveData()
-    var activeOrders: MutableLiveData<NetworkResult<PutAwayResponse>> = MutableLiveData()
+    var activeOrdersResponse: MutableLiveData<NetworkResult<ArrayList<Task>>> = MutableLiveData()
+    var assignOrderToUserResponse: MutableLiveData<NetworkResult<BooleanResult>> = MutableLiveData()
+    var cancelOrderResponse: MutableLiveData<NetworkResult<BooleanResult>> = MutableLiveData()
 
     fun getActiveOrders() = viewModelScope.launch {
         getActiveOrdersSafeCall()
+    }
+
+    fun assignOrderToUser(assignOrderToUser: AssignOrderToUser) = viewModelScope.launch {
+        assignOrderToUserSafe(assignOrderToUser)
     }
 
     fun authenticateUser(userToAuthenticate: UserToAuthenticate) = viewModelScope.launch {
         authenticateUserSafe(userToAuthenticate)
     }
 
+    fun cancelOrder(cancelOrder: OrderActionRequest) = viewModelScope.launch {
+        cancelOrderSafe(cancelOrder)
+    }
+
     private suspend fun authenticateUserSafe(userToAuthenticate: UserToAuthenticate) {
         authenticateUserResponse.value = NetworkResult.Loading()
         if (hasInternetConnection()) {
             try {
-                delay(500)
+                delay(1000)
                 val response = repository.remote.authenticateUser(userToAuthenticate)
                 authenticateUserResponse.value = handleAuthenticateUserResponse(response)
             } catch (e: Exception) {
@@ -84,18 +97,18 @@ class MainViewModel @Inject constructor(
 
 
     private suspend fun getActiveOrdersSafeCall() {
-        activeOrders.value = NetworkResult.Loading()
+        activeOrdersResponse.value = NetworkResult.Loading()
         if (hasInternetConnection()) {
             try {
+                delay(1000)
                 val response = repository.remote.getOrders()
-                activeOrders.value = handleResponse(response) as NetworkResult<PutAwayResponse>
-
-                val activeOrders = activeOrders.value!!.data
+                activeOrdersResponse.value = handleResponse(response) as NetworkResult<ArrayList<Task>>
             } catch (e: Exception) {
-                activeOrders.value = NetworkResult.Error("Recipes not found.")
+                Log.i("API", e.message.toString())
+                activeOrdersResponse.value = NetworkResult.Error("Recipes not found.")
             }
         } else {
-            activeOrders.value = NetworkResult.Error("No Internet Connection.")
+            activeOrdersResponse.value = NetworkResult.Error("No Internet Connection.")
         }
     }
 
@@ -117,6 +130,37 @@ class MainViewModel @Inject constructor(
             else -> {
                 return NetworkResult.Error(response.message())
             }
+        }
+    }
+
+    private suspend fun assignOrderToUserSafe(assignOrderToUser: AssignOrderToUser) {
+        assignOrderToUserResponse.value = NetworkResult.Loading()
+        if (hasInternetConnection()) {
+            try {
+                delay(1000)
+                val response = repository.remote.assignOrderToUser(assignOrderToUser)
+                assignOrderToUserResponse.value = handleResponse(response) as NetworkResult<BooleanResult>
+            } catch (e: Exception) {
+                Log.i("API", e.message.toString())
+                assignOrderToUserResponse.value = NetworkResult.Error("Recipes not found.")
+            }
+        } else {
+            assignOrderToUserResponse.value = NetworkResult.Error("No Internet Connection.")
+        }
+    }
+    private suspend fun cancelOrderSafe(cancelOrder: OrderActionRequest) {
+        cancelOrderResponse.value = NetworkResult.Loading()
+        if (hasInternetConnection()) {
+            try {
+                delay(1000)
+                val response = repository.remote.cancelOrder(cancelOrder)
+                cancelOrderResponse.value = handleResponse(response) as NetworkResult<BooleanResult>
+            } catch (e: Exception) {
+                Log.i("API", e.message.toString())
+                cancelOrderResponse.value = NetworkResult.Error("Recipes not found.")
+            }
+        } else {
+            cancelOrderResponse.value = NetworkResult.Error("No Internet Connection.")
         }
     }
 

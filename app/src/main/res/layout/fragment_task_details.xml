@@ -3,33 +3,35 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <data>
-
-    </data>
-
     <androidx.constraintlayout.widget.ConstraintLayout
-        tools:context=".ui.task.TaskDetailsFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/blue_700">
-
+        android:background="@color/blue_700"
+        tools:context=".ui.task.TaskDetailsFragment">
 
         <ImageView
             android:layout_width="200dp"
             android:layout_height="200dp"
-            android:layout_marginBottom="32dp"
             android:src="@drawable/ic_work"
-            app:layout_constraintBottom_toTopOf="@+id/materialCardView"
-            app:layout_constraintEnd_toEndOf="@+id/materialCardView"
-            app:layout_constraintStart_toStartOf="@+id/materialCardView" />
+            app:layout_constraintBottom_toTopOf="@+id/detail_card"
+            app:layout_constraintEnd_toEndOf="@+id/detail_card"
+            app:layout_constraintStart_toStartOf="@+id/detail_card" />
 
         <com.google.android.material.card.MaterialCardView
-            android:id="@+id/materialCardView"
+            android:id="@+id/detail_card"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:cardCornerRadius="4dp"
-
             app:layout_constraintBottom_toBottomOf="parent">
+
+            <com.google.android.material.progressindicator.LinearProgressIndicator
+                android:id="@+id/detail_progress_bar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:indeterminate="true"
+                android:visibility="gone"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -37,11 +39,14 @@
                 android:orientation="vertical"
                 android:padding="15dp">
 
+
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
                     android:text="@string/current_order"
+                    android:textColor="@color/black"
                     android:textSize="35sp"
                     android:textStyle="bold" />
 
@@ -51,82 +56,100 @@
                     android:layout_marginBottom="16dp"
                     android:background="@color/gray" />
 
-                    <TextView
-                        android:id="@+id/task_name"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Załadunek 2137"
-                        android:textAppearance="?attr/textAppearanceHeadline6"
-                        android:layout_marginBottom="4dp"
-                        android:textSize="24sp"/>
+                <TextView
+                    android:id="@+id/detail_order_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="4dp"
+                    android:textAppearance="?attr/textAppearanceHeadline6"
+                    android:textSize="24sp" />
 
-                    <TextView
-                        android:id="@+id/task_description"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/permission_description"
-                        android:layout_marginBottom="8dp"
-                        android:textSize="14sp" />
+                <TextView
+                    android:id="@+id/detail_order_description"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:textSize="14sp" />
 
-                    <TextView
-                        android:id="@+id/task_location"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="8dp"
-                        android:text="Lokalizacja: Testowa"
-                        android:textAppearance="?attr/textAppearanceHeadline6"
-                        android:textSize="17sp" />
+                <TextView
+                    android:id="@+id/detail_order_location"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:textAppearance="?attr/textAppearanceHeadline6"
+                    android:textSize="17sp" />
 
-                    <TextView
-                        android:id="@+id/task_elements"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Elementy:"
+                <TextView
+                    android:id="@+id/detail_order_status"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:textAppearance="?attr/textAppearanceHeadline6"
+                    android:textSize="17sp" />
 
-                        android:textAppearance="?attr/textAppearanceHeadline6"
-                        android:textSize="17sp" />
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="- ELEMENT 1"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginBottom="8dp"
-                        android:textSize="14sp" />
+                <TextView
+                    android:id="@+id/detail_order_elements"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/element_elements"
+                    android:textAppearance="?attr/textAppearanceHeadline6"
+                    android:textSize="17sp" />
+
+                <LinearLayout
+                    android:id="@+id/elements_linear_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="5dp"></LinearLayout>
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:layout_marginBottom="8dp"
                     android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
                     android:background="@color/gray" />
 
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/confirm_button"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/second_confirm_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:backgroundTint="@color/green"
                     android:drawableEnd="@drawable/ic_check"
                     android:padding="12dp"
                     android:text="@string/accept"
-                    android:textColor="@color/white"/>
+                    android:textColor="@color/white"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/second_confirm_text" />
 
                 <com.google.android.material.button.MaterialButton
-                    android:id="@+id/cancel_button"
+                    android:id="@+id/qr_button"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/blue_700"
+                    android:drawableEnd="@drawable/ic_qr"
+                    android:padding="12dp"
+                    android:text="@string/scan_qr_code"
+                    android:textColor="@color/white"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/confirm"
+                    app:layout_constraintTop_toBottomOf="@+id/confirm" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/cancel_button"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:backgroundTint="@color/red"
                     android:drawableEnd="@drawable/ic_close"
                     android:padding="12dp"
                     android:text="@string/cancel"
-                    android:textColor="@color/white"/>
+                    android:textColor="@color/white"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/confirm" />
             </LinearLayout>
 
         </com.google.android.material.card.MaterialCardView>

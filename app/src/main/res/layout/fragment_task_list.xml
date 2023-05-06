@@ -4,10 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/light_gray"
     tools:context=".ui.task.TaskListFragment">
 
     <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/appBarLayout"
+        android:id="@+id/application_top_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:elevation="2dp"
@@ -17,7 +18,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <com.google.android.material.appbar.MaterialToolbar
-            android:id="@+id/topAppBar"
+            android:id="@+id/top_bar"
             style="@style/Widget.MaterialComponents.Toolbar.Primary"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
@@ -29,57 +30,52 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <com.google.android.material.chip.ChipGroup
-        android:id="@+id/statusChoices"
+    <com.facebook.shimmer.ShimmerFrameLayout
+        android:id="@+id/shimmer_effect_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="4dp"
+        android:layout_margin="8dp"
+        android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/appBarLayout">
+        app:layout_constraintTop_toBottomOf="@+id/application_top_bar">
 
-        <com.google.android.material.chip.Chip
-            android:id="@+id/chipSubstitute"
-            style="@style/Widget.MaterialComponents.Chip.Choice"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Podstawienie"
-            android:textSize="18sp" />
+            android:orientation="vertical">
 
-        <com.google.android.material.chip.Chip
-            android:id="@+id/chipLoading"
-            style="@style/Widget.MaterialComponents.Chip.Choice"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Załadunek"
-            android:textSize="18sp" />
+            <include layout="@layout/fragment_list_placeholder" />
 
-        <com.google.android.material.chip.Chip
-            android:id="@+id/chipPutAway"
-            style="@style/Widget.MaterialComponents.Chip.Choice"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Odstawienie"
-            android:textSize="18sp" />
+            <include layout="@layout/fragment_list_placeholder" />
 
+            <include layout="@layout/fragment_list_placeholder" />
 
-    </com.google.android.material.chip.ChipGroup>
+            <include layout="@layout/fragment_list_placeholder" />
+
+            <include layout="@layout/fragment_list_placeholder" />
+
+            <include layout="@layout/fragment_list_placeholder" />
+        </LinearLayout>
+
+    </com.facebook.shimmer.ShimmerFrameLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/tasks_recyclerView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginStart="2dp"
-        android:layout_marginEnd="2dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginBottom="8dp"
         android:layoutAnimation="@anim/recyclerview_layout_animation"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/statusChoices" />
+        app:layout_constraintTop_toBottomOf="@+id/application_top_bar" />
 
     <ImageView
-        android:id="@+id/imageView2"
+        android:id="@+id/lack_of_data_image"
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:src="@drawable/ic_array"
@@ -87,16 +83,18 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/appBarLayout" />
+        app:layout_constraintTop_toBottomOf="@+id/application_top_bar" />
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/lack_of_data_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Brak danych"
+        android:text="@string/lack_of_data"
+        android:textColor="@color/black"
+        android:textSize="18sp"
         android:visibility="gone"
-        app:layout_constraintEnd_toEndOf="@+id/imageView2"
-        app:layout_constraintStart_toStartOf="@+id/imageView2"
-        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+        app:layout_constraintEnd_toEndOf="@+id/lack_of_data_image"
+        app:layout_constraintStart_toStartOf="@+id/lack_of_data_image"
+        app:layout_constraintTop_toBottomOf="@+id/lack_of_data_image" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

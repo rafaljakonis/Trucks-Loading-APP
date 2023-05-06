@@ -59,11 +59,13 @@ class LoginScreenFragment : Fragment() {
                     APPLICATION_VERSION,
                     "TEST"
                 )
-                findNavController().navigate(R.id.action_loginScreenFragment_to_taskListFragment)
+
                 mainViewModel.authenticateUser(userToAuthenticate)
                 handleLoginResponse()
             }
         }
+
+        binding
 
         return binding.root
     }
@@ -102,6 +104,7 @@ class LoginScreenFragment : Fragment() {
             when (response) {
                 is NetworkResult.Success -> {
                     dropProgressBar()
+                    response.data?.let { sharedViewModel.user = it }
                     findNavController().navigate(R.id.action_loginScreenFragment_to_taskListFragment)
                 }
 

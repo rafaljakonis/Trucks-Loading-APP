@@ -9,6 +9,8 @@ import android.view.ViewGroup
 import androidx.core.view.children
 import androidx.core.view.forEach
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.trucksload.R
@@ -18,38 +20,38 @@ import com.example.trucksload.data.model.Task
 import com.example.trucksload.databinding.FragmentLoginScreenBinding
 import com.example.trucksload.databinding.FragmentTaskListBinding
 import com.example.trucksload.ui.bottomsheet.BottomSheet
+import com.example.trucksload.util.NetworkResult
+import com.example.trucksload.viewmodels.MainViewModel
 import com.example.trucksload.viewmodels.SharedViewModel
 import com.google.android.material.chip.Chip
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class TaskListFragment : Fragment() {
-
-    private var adapterArray: ArrayList<Task> = arrayListOf()
-    private var adapterArray1: ArrayList<Task> = arrayListOf()
-    private var _binding: FragmentTaskListBinding? = null
-    private val binding get() = _binding!!
+    private lateinit var binding: FragmentTaskListBinding
+    private val mainViewModel: MainViewModel by viewModels()
     private val sharedViewModel: SharedViewModel by activityViewModels()
+    private var adapterArray: ArrayList<Task> = arrayListOf()
     private val adapter: TaskAdapter by lazy { TaskAdapter(adapterArray) }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentTaskListBinding.inflate(layoutInflater, container, false)
+        binding = FragmentTaskListBinding.inflate(layoutInflater, container, false)
         binding.tasksRecyclerView.layoutManager = LinearLayoutManager(requireContext())
         binding.tasksRecyclerView.adapter = adapter
-        test()
-        t2()
-        binding.statusChoices.forEach { child ->
-            (child as? Chip)?.setOnCheckedChangeListener { _, _ ->
-                Log.i("TEST", child.text.toString())
-                when (child.text.toString()) {
-                    "Podstawienie" -> sharedViewModel.chipSubstitute = child.isChecked
-                    "Załadunek" -> sharedViewModel.chipLoading = child.isChecked
-                    "Odstawienie" -> sharedViewModel.chipPutAway = child.isChecked
-                }
-                t1()
+        setOrdersObserver()
+        checkSavedOrders()
+
+        binding.topBar.setOnMenuItemClickListener {
+            when (it.itemId) {
+                R.id.sign_out -> logout()
+                R.id.refresh -> refresh()
             }
+            true
         }
+
         adapter.onItemClick = {
             BottomSheet(it).show(parentFragmentManager, "ModalBottomSheet")
         }
@@ -57,95 +59,79 @@ class TaskListFragment : Fragment() {
         return binding.root
     }
 
-    private fun t2() {
-        binding.chipSubstitute.isChecked = sharedViewModel.chipSubstitute
-        binding.chipLoading.isChecked = sharedViewModel.chipLoading
-        binding.chipPutAway.isChecked = sharedViewModel.chipPutAway
-        t1();
-    }
-    private fun t1() {
-        adapterArray.clear()
-        adapterArray1.forEach {
-            if (it.status == 1 && sharedViewModel.chipSubstitute) adapterArray.plusAssign(it)
-            if (it.status == 2 && sharedViewModel.chipLoading) adapterArray.plusAssign(it)
-            if (it.status == 3 && sharedViewModel.chipPutAway) adapterArray.plusAssign(it)
+
+    private fun checkSavedOrders() {
+        if (sharedViewModel.orderArrayList.isEmpty()) {
+            mainViewModel.getActiveOrders()
+        } else {
+            adapterArray.plusAssign(sharedViewModel.orderArrayList)
+            adapter.notifyDataSetChanged()
         }
-        adapter.notifyDataSetChanged()
     }
 
-    private fun test() {
-        adapterArray1.plusAssign(
-            Task(
-                1,
-                123,
-                1,
-                "1231",
-                "sdfsdf",
-                "2024-01-12",
-                false,
-                listOf<Element>(
-                    Element("123", "123", 123, "TEST", false),
-                    Element("123", "123", 123, "TEST", false),
-                    Element("123", "123", 123, "TEST", false),
-                    Element("123", "123", 123, "TEST", false)
-                )
-            )
-        )
-        adapterArray1.plusAssign(
-            Task(
-                1,
-                123,
-                1,
-                "1231",
-                "sdfsdf",
-                "2024-01-12",
-                false,
-                listOf<Element>(
-                    Element("123", "123", 123, "TEST", false),
-                    Element("123", "123", 123, "TEST", false),
-                    Element("123", "123", 123, "TEST", false),
-                    Element("123", "123", 123, "TEST", false)
-                )
-            )
-        )
-        adapterArray1.plusAssign(
-            Task(
-                1,
-                123,
-                3,
-                "1231",
-                "sdfsdf",
-                "2024-01-12",
-                false,
-                listOf<Element>(
-                    Element("123", "123", 123, "TEST", false),
-                    Element("123", "123", 123, "TEST", false),
-                    Element("123", "123", 123, "TEST", false),
-                    Element("123", "123", 123, "TEST", false)
-                )
-            )
-        )
-        adapterArray1.plusAssign(
-            Task(
-                1,
-                123,
-                2,
-                "1231",
-                "sdfsdf",
-                "2024-01-12",
-                false,
-                listOf<Element>(
-                    Element("123", "123", 123, "TEST", false),
-                    Element("123", "123", 123, "TEST", false),
-                    Element("123", "123", 123, "TEST", false),
-                    Element("123", "123", 123, "TEST", false)
-                )
-            )
-        )
+    private fun setOrdersObserver() {
+        mainViewModel.activeOrdersResponse.observe(viewLifecycleOwner) { response ->
+            when (response) {
+                is NetworkResult.Success -> {
+                    stopShimmerEffect()
+                    sharedViewModel.orderArrayList = response.data!!
+
+                    if (response.data.isEmpty()) {
+                        showEmptyDataInformation()
+                    } else {
+                        dropEmptyDataInformation()
+                    }
+
+                    adapterArray.plusAssign(response.data)
+                    adapter.notifyDataSetChanged()
+                }
+
+                is NetworkResult.Error -> {
+                    stopShimmerEffect()
+                }
+
+                is NetworkResult.Loading -> {
+                    startShimmerEffect()
+                }
+            }
+        }
+    }
+
+    private fun showEmptyDataInformation() {
+        binding.lackOfDataImage.visibility = View.VISIBLE
+        binding.lackOfDataText.visibility = View.VISIBLE
+    }
+
+    private fun dropEmptyDataInformation() {
+        binding.lackOfDataImage.visibility = View.GONE
+        binding.lackOfDataText.visibility = View.GONE
+    }
+
+    private fun startShimmerEffect() {
+        dropEmptyDataInformation()
+        binding.shimmerEffectLayout.startShimmer()
+        binding.tasksRecyclerView.visibility = View.GONE
+        binding.shimmerEffectLayout.visibility = View.VISIBLE
+    }
+
+    private fun stopShimmerEffect() {
+        binding.shimmerEffectLayout.stopShimmer()
+        binding.tasksRecyclerView.visibility = View.VISIBLE
+        binding.shimmerEffectLayout.visibility = View.GONE
+    }
+
+    private fun logout() {
+        findNavController().navigate(R.id.loginScreenFragment)
+    }
+
+    private fun refresh() {
+        binding.tasksRecyclerView.removeAllViews()
+        adapterArray.clear()
+        adapter.notifyDataSetChanged()
+        mainViewModel.getActiveOrders()
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
-        _binding = null
     }
 }

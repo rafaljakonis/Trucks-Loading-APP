@@ -10,25 +10,26 @@
     </data>
 
     <com.google.android.material.card.MaterialCardView
-        android:id="@+id/task_card"
+        android:id="@+id/element_material_card"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
         android:clickable="true"
+        android:layout_marginTop="4dp"
         android:foreground="?android:attr/selectableItemBackground"
-        app:cardElevation="5dp">
+        app:cardElevation="1dp">
 
         <LinearLayout
+            android:id="@+id/element_linear_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/task_name"
+                android:id="@+id/element_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Zlecenie 2137"
+                android:text="@string/element_order"
                 android:textAppearance="?attr/textAppearanceHeadline6"
                 android:layout_marginBottom="8dp"
                 android:textSize="28sp"/>
@@ -42,10 +43,9 @@
                 android:layout_height="1dp"
                 android:background="@color/gray" />
             <TextView
-                android:id="@+id/task_description"
+                android:id="@+id/element_description"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/permission_description"
                 android:layout_marginBottom="8dp"
                 android:textSize="14sp" />
 
@@ -59,50 +59,30 @@
                 android:layout_height="1dp"
                 android:background="@color/gray" />
             <TextView
-                android:id="@+id/task_location"
+                android:id="@+id/element_location"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
-                android:text="Lokalizacja: Testowa"
+                android:text="@string/element_location"
                 android:textAppearance="?attr/textAppearanceHeadline6"
                 android:textSize="17sp" />
 
             <TextView
-                android:id="@+id/task_status"
+                android:id="@+id/element_status"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
-                android:text="Status: Test"
+                android:text="@string/element_status"
                 android:textAppearance="?attr/textAppearanceHeadline6"
                 android:textSize="17sp" />
 
             <TextView
-                android:id="@+id/task_elements"
+                android:id="@+id/element_elements"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Elementy:"
-
+                android:text="@string/element_elements"
                 android:textAppearance="?attr/textAppearanceHeadline6"
                 android:textSize="17sp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="- ELEMENT 1"
-                android:gravity="center_vertical"
-                android:layout_marginStart="10dp"
-                android:drawableEnd="@drawable/ic_check_green"
-                android:textSize="14sp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="- ELEMENT 2"
-                android:layout_marginStart="10dp"
-                android:gravity="center_vertical"
-                android:layout_marginBottom="8dp"
-                android:drawableEnd="@drawable/ic_close_red"
-                android:textSize="14sp" />
         </LinearLayout>
 
 <!--        <View-->

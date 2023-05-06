@@ -1,7 +1,7 @@
 package com.example.trucksload.data
 
 import com.example.trucksload.data.database.LocalDataSource
-import com.example.trucksload.data.network.RemoteDataSource
+import com.example.trucksload.data.network.model.RemoteDataSource
 import dagger.hilt.android.scopes.ViewModelScoped
 import javax.inject.Inject
 

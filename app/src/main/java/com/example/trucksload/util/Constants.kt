@@ -14,7 +14,7 @@ object Constants {
     const val PREFERENCE_FIRST_LAUNCH = "firstLaunch"
 
     //API
-    const val BASE_URL = "http://android-api.local"
+    const val BASE_URL = "https://polsl.jakonis.pl"
 
     //DATABASE
     const val DATABASE_NAME = "truck_load"

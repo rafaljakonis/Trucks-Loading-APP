@@ -20,4 +20,14 @@
 
     <string name="login_wrong_login_pattern">Login musi zawierać przynajmniej 5 znaków</string>
     <string name="login_wrong_password_pattern">Hasło musi zawierać przynajmniej 5 znaków</string>
+
+    <string name="element_order">Zamówienie</string>
+    <string name="element_location">Lokalizacja:</string>
+    <string name="element_status">Status:</string>
+    <string name="element_elements">Elementy:</string>
+    <string name="order_are_operated">Wybrane zamówienie jest już przetwarzane</string>
+    <string name="something_is_wrong">Coś poszło nie tak</string>
+
+    <string name="lack_of_data">Brak danych</string>
+    <string name="scan_qr_code">Zeskanuj kod QR</string>
 </resources>
