@@ -92,4 +92,7 @@ dependencies {
     // Places SDK
     implementation 'com.google.android.libraries.places:places:3.0.0'
     implementation 'com.android.volley:volley:1.2.1'
+
+    //QR
+    implementation "io.github.g00fy2.quickie:quickie-bundled:1.6.0"
 }
