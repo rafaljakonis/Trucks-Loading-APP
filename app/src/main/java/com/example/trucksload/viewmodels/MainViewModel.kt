@@ -6,20 +6,23 @@ import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Parcelable
 import android.util.Log
-import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.example.trucksload.data.Repository
+import com.example.trucksload.data.database.TruckLoadEntity
 import com.example.trucksload.data.model.Task
 import com.example.trucksload.data.model.User
 import com.example.trucksload.data.model.UserToAuthenticate
 import com.example.trucksload.data.network.model.BooleanResult
 import com.example.trucksload.data.network.model.AssignOrderToUser
 import com.example.trucksload.data.network.model.OrderActionRequest
+import com.example.trucksload.data.network.model.ScannedElement
 import com.example.trucksload.util.NetworkResult
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import retrofit2.Response
 import java.lang.Exception
 import javax.inject.Inject
@@ -33,12 +36,27 @@ class MainViewModel @Inject constructor(
     //ROOM
     var recyclerViewState: Parcelable? = null
 
+    val user: LiveData<TruckLoadEntity> = repository.local.readUserProperty().asLiveData()
+
+    fun insertUser(userLoadEntity: TruckLoadEntity) =
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.local.insertUser(userLoadEntity)
+        }
+
+    fun deleteUser() =
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.local.deleteUser()
+        }
 
     //API
     var authenticateUserResponse: MutableLiveData<NetworkResult<User>> = MutableLiveData()
     var activeOrdersResponse: MutableLiveData<NetworkResult<ArrayList<Task>>> = MutableLiveData()
     var assignOrderToUserResponse: MutableLiveData<NetworkResult<BooleanResult>> = MutableLiveData()
     var cancelOrderResponse: MutableLiveData<NetworkResult<BooleanResult>> = MutableLiveData()
+    var finishOrderResponse: MutableLiveData<NetworkResult<BooleanResult>> = MutableLiveData()
+    var scannedElementResponse: MutableLiveData<NetworkResult<BooleanResult>> = MutableLiveData()
+    var uploadPhotoResponse: MutableLiveData<NetworkResult<BooleanResult>> = MutableLiveData()
+    var operatedOrderResponse: MutableLiveData<NetworkResult<ArrayList<Task>>> = MutableLiveData()
 
     fun getActiveOrders() = viewModelScope.launch {
         getActiveOrdersSafeCall()
@@ -54,6 +72,21 @@ class MainViewModel @Inject constructor(
 
     fun cancelOrder(cancelOrder: OrderActionRequest) = viewModelScope.launch {
         cancelOrderSafe(cancelOrder)
+    }
+
+    fun finishOrder(finishOrder: OrderActionRequest) = viewModelScope.launch {
+        finishOrderSafe(finishOrder)
+    }
+
+    fun setElementScanned(scannedElement: ScannedElement) = viewModelScope.launch {
+        setElementScannedSafe(scannedElement)
+    }
+
+    fun uploadPhoto(orderId: RequestBody, file: MultipartBody.Part) = viewModelScope.launch {
+        uploadPhotoSafe(orderId, file)
+    }
+    fun getOperatedOrder(userId: Int) = viewModelScope.launch {
+        getOperatedOrderSafe(userId)
     }
 
     private suspend fun authenticateUserSafe(userToAuthenticate: UserToAuthenticate) {
@@ -102,7 +135,8 @@ class MainViewModel @Inject constructor(
             try {
                 delay(1000)
                 val response = repository.remote.getOrders()
-                activeOrdersResponse.value = handleResponse(response) as NetworkResult<ArrayList<Task>>
+                activeOrdersResponse.value =
+                    handleResponse(response) as NetworkResult<ArrayList<Task>>
             } catch (e: Exception) {
                 Log.i("API", e.message.toString())
                 activeOrdersResponse.value = NetworkResult.Error("Recipes not found.")
@@ -139,7 +173,8 @@ class MainViewModel @Inject constructor(
             try {
                 delay(1000)
                 val response = repository.remote.assignOrderToUser(assignOrderToUser)
-                assignOrderToUserResponse.value = handleResponse(response) as NetworkResult<BooleanResult>
+                assignOrderToUserResponse.value =
+                    handleResponse(response) as NetworkResult<BooleanResult>
             } catch (e: Exception) {
                 Log.i("API", e.message.toString())
                 assignOrderToUserResponse.value = NetworkResult.Error("Recipes not found.")
@@ -148,6 +183,7 @@ class MainViewModel @Inject constructor(
             assignOrderToUserResponse.value = NetworkResult.Error("No Internet Connection.")
         }
     }
+
     private suspend fun cancelOrderSafe(cancelOrder: OrderActionRequest) {
         cancelOrderResponse.value = NetworkResult.Loading()
         if (hasInternetConnection()) {
@@ -161,6 +197,71 @@ class MainViewModel @Inject constructor(
             }
         } else {
             cancelOrderResponse.value = NetworkResult.Error("No Internet Connection.")
+        }
+    }
+
+    private suspend fun finishOrderSafe(finishOrder: OrderActionRequest) {
+        finishOrderResponse.value = NetworkResult.Loading()
+        if (hasInternetConnection()) {
+            try {
+                delay(1000)
+                val response = repository.remote.finishOrder(finishOrder)
+                finishOrderResponse.value = handleResponse(response) as NetworkResult<BooleanResult>
+            } catch (e: Exception) {
+                Log.i("API", e.message.toString())
+                finishOrderResponse.value = NetworkResult.Error("Recipes not found.")
+            }
+        } else {
+            finishOrderResponse.value = NetworkResult.Error("No Internet Connection.")
+        }
+    }
+
+    private suspend fun setElementScannedSafe(scannedElement: ScannedElement) {
+        scannedElementResponse.value = NetworkResult.Loading()
+        if (hasInternetConnection()) {
+            try {
+                delay(1000)
+                val response = repository.remote.setElementScanned(scannedElement)
+                scannedElementResponse.value =
+                    handleResponse(response) as NetworkResult<BooleanResult>
+            } catch (e: Exception) {
+                Log.i("API", e.message.toString())
+                scannedElementResponse.value = NetworkResult.Error("Recipes not found.")
+            }
+        } else {
+            scannedElementResponse.value = NetworkResult.Error("No Internet Connection.")
+        }
+    }
+
+    private suspend fun uploadPhotoSafe(orderId: RequestBody, file: MultipartBody.Part) {
+        uploadPhotoResponse.value = NetworkResult.Loading()
+        if (hasInternetConnection()) {
+            try {
+                delay(1000)
+                val response = repository.remote.uploadPhoto(orderId, file)
+                uploadPhotoResponse.value = handleResponse(response) as NetworkResult<BooleanResult>
+            } catch (e: Exception) {
+                Log.i("API", e.message.toString())
+                uploadPhotoResponse.value = NetworkResult.Error("Recipes not found.")
+            }
+        } else {
+            uploadPhotoResponse.value = NetworkResult.Error("No Internet Connection.")
+        }
+    }
+
+    private suspend fun getOperatedOrderSafe(userId: Int) {
+        operatedOrderResponse.value = NetworkResult.Loading()
+        if (hasInternetConnection()) {
+            try {
+                delay(1000)
+                val response = repository.remote.getOperatedOrder(userId)
+                operatedOrderResponse.value = handleResponse(response) as NetworkResult<ArrayList<Task>>
+            } catch (e: Exception) {
+                Log.i("API", e.message.toString())
+                operatedOrderResponse.value = NetworkResult.Error("Recipes not found.")
+            }
+        } else {
+            operatedOrderResponse.value = NetworkResult.Error("No Internet Connection.")
         }
     }
 

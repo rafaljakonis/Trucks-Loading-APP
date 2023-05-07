@@ -11,7 +11,7 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/loginConstraintLayout"
+        android:id="@+id/login_constraint_layout"
         tools:context=".ui.login.LoginScreenFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -19,23 +19,22 @@
 
 
         <ImageView
-            android:layout_width="200dp"
-            android:layout_height="200dp"
-            android:layout_marginBottom="32dp"
-            android:src="@drawable/ic_key"
-            app:layout_constraintBottom_toTopOf="@+id/materialCardView"
-            app:layout_constraintEnd_toEndOf="@+id/materialCardView"
-            app:layout_constraintStart_toStartOf="@+id/materialCardView" />
+            android:layout_width="250dp"
+            android:layout_height="250dp"
+            android:src="@drawable/ic_groups"
+            app:layout_constraintBottom_toTopOf="@+id/material_card_view"
+            app:layout_constraintEnd_toEndOf="@+id/material_card_view"
+            app:layout_constraintStart_toStartOf="@+id/material_card_view" />
 
         <com.google.android.material.card.MaterialCardView
-            android:id="@+id/materialCardView"
+            android:id="@+id/material_card_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:cardCornerRadius="4dp"
             app:layout_constraintBottom_toBottomOf="parent">
 
             <com.google.android.material.progressindicator.LinearProgressIndicator
-                android:id="@+id/progressBar"
+                android:id="@+id/progress_bar"
                 android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -57,7 +56,7 @@
                     android:textStyle="bold" />
 
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/loginInput"
+                    android:id="@+id/login_input"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -66,17 +65,16 @@
                     app:counterMaxLength="20">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/loginInputData"
+                        android:id="@+id/login_input_data"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="rafal.jakonis"
                         android:maxLength="20" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
 
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/passwordInput"
+                    android:id="@+id/password_input"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -85,11 +83,10 @@
                     app:counterMaxLength="20">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/passwordInputData"
+                        android:id="@+id/password_input_data"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="textPassword"
-                        android:text="dupa2137"
                         android:maxLength="20" />
 
                 </com.google.android.material.textfield.TextInputLayout>
@@ -102,7 +99,7 @@
                     android:textSize="15sp" />
 
                 <com.google.android.material.button.MaterialButton
-                    android:id="@+id/loginButton"
+                    android:id="@+id/login_button"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:padding="15dp"

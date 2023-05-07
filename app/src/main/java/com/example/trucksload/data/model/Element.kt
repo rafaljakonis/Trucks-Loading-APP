@@ -14,5 +14,5 @@ data class Element(
     @SerializedName("localization")
     val localization: String,
     @SerializedName("is_complete")
-    val isComplete: Int
+    var isComplete: Int
 )

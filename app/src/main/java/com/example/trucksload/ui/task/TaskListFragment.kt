@@ -41,8 +41,9 @@ class TaskListFragment : Fragment() {
         binding = FragmentTaskListBinding.inflate(layoutInflater, container, false)
         binding.tasksRecyclerView.layoutManager = LinearLayoutManager(requireContext())
         binding.tasksRecyclerView.adapter = adapter
+
         setOrdersObserver()
-        checkSavedOrders()
+        mainViewModel.getActiveOrders()
 
         binding.topBar.setOnMenuItemClickListener {
             when (it.itemId) {
@@ -59,21 +60,12 @@ class TaskListFragment : Fragment() {
         return binding.root
     }
 
-
-    private fun checkSavedOrders() {
-        if (sharedViewModel.orderArrayList.isEmpty()) {
-            mainViewModel.getActiveOrders()
-        } else {
-            adapterArray.plusAssign(sharedViewModel.orderArrayList)
-            adapter.notifyDataSetChanged()
-        }
-    }
-
     private fun setOrdersObserver() {
         mainViewModel.activeOrdersResponse.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is NetworkResult.Success -> {
                     stopShimmerEffect()
+                    dropLackOfInternetInformation()
                     sharedViewModel.orderArrayList = response.data!!
 
                     if (response.data.isEmpty()) {
@@ -87,6 +79,7 @@ class TaskListFragment : Fragment() {
                 }
 
                 is NetworkResult.Error -> {
+                    showLackOfInternetInformation()
                     stopShimmerEffect()
                 }
 
@@ -98,6 +91,7 @@ class TaskListFragment : Fragment() {
     }
 
     private fun showEmptyDataInformation() {
+        dropLackOfInternetInformation()
         binding.lackOfDataImage.visibility = View.VISIBLE
         binding.lackOfDataText.visibility = View.VISIBLE
     }
@@ -107,8 +101,20 @@ class TaskListFragment : Fragment() {
         binding.lackOfDataText.visibility = View.GONE
     }
 
+    private fun showLackOfInternetInformation() {
+        dropEmptyDataInformation()
+        binding.lackOfInternet.visibility = View.VISIBLE
+        binding.lackOfInternetText.visibility = View.VISIBLE
+    }
+
+    private fun dropLackOfInternetInformation() {
+        binding.lackOfInternet.visibility = View.GONE
+        binding.lackOfInternetText.visibility = View.GONE
+    }
+
     private fun startShimmerEffect() {
         dropEmptyDataInformation()
+        dropLackOfInternetInformation()
         binding.shimmerEffectLayout.startShimmer()
         binding.tasksRecyclerView.visibility = View.GONE
         binding.shimmerEffectLayout.visibility = View.VISIBLE
@@ -121,6 +127,7 @@ class TaskListFragment : Fragment() {
     }
 
     private fun logout() {
+        mainViewModel.deleteUser()
         findNavController().navigate(R.id.loginScreenFragment)
     }
 

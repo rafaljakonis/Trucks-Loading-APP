@@ -22,7 +22,9 @@ object DatabaseModule {
         context,
         TruckLoadDataBase::class.java,
         DATABASE_NAME
-    ).build()
+    )
+        .fallbackToDestructiveMigration()
+        .build()
 
     @Singleton
     @Provides

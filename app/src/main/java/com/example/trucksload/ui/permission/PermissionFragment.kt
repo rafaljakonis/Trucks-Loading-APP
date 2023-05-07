@@ -20,16 +20,13 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class PermissionFragment : Fragment(), EasyPermissions.PermissionCallbacks {
 
-    private var _binding: FragmentPermissionBinding? = null
-    private val binding get() = _binding!!
+    private lateinit var binding: FragmentPermissionBinding
     private val sharedViewModel: SharedViewModel by activityViewModels()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        // Inflate the layout for this fragment
-        _binding = FragmentPermissionBinding.inflate(inflater, container, false)
-
+        binding = FragmentPermissionBinding.inflate(inflater, container, false)
         binding.continueButton.setOnClickListener {
             if (Permissions.hasLocationPermission(requireContext())) {
                 checkFirstLaunch()
@@ -63,13 +60,12 @@ class PermissionFragment : Fragment(), EasyPermissions.PermissionCallbacks {
     override fun onPermissionsGranted(requestCode: Int, perms: List<String>) {
         Toast.makeText(
             requireContext(),
-            "Permission Granted! Tap on 'Continue' button to proceed.",
+            "Uprawnienia dodane!",
             Toast.LENGTH_SHORT
         ).show()
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
-        _binding = null
     }
 }

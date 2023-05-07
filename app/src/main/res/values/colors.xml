@@ -15,6 +15,9 @@
     <color name="light_red">#A10502</color>
 
     <color name="gray">#868a88</color>
+    <color name="gray_200">#CBC9AD</color>
     <color name="light_gray">#f2f4f3</color>
     <color name="shimmer_color">#C2C6C4</color>
+
+    <color name="pink_900">#312a21</color>
 </resources>

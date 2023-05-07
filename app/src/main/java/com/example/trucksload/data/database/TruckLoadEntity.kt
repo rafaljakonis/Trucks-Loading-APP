@@ -11,6 +11,7 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 class TruckLoadEntity(
     val uid: String,
+    val password: String,
     val firstName: String,
     val lastName: String
 ): Parcelable {

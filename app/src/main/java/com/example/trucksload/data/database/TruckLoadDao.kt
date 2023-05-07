@@ -8,10 +8,15 @@ interface TruckLoadDao {
 
     @Query("SELECT * FROM user LIMIT 1")
     fun readUserProperty(): Flow<TruckLoadEntity>
+    @Transaction
+    suspend fun insertNewUser(truckLoadEntity: TruckLoadEntity) {
+        removeSavedUser()
+        insertUser(truckLoadEntity)
+    }
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertNewUser(truckLoadEntity: TruckLoadEntity)
-
-    @Delete
-    suspend fun removeSavedUser(truckLoadEntity: TruckLoadEntity)
+    suspend fun insertUser(truckLoadEntity: TruckLoadEntity)
+    
+    @Query("DELETE FROM user")
+    suspend fun removeSavedUser()
 }

@@ -10,4 +10,11 @@ class LocalDataSource @Inject constructor(
     fun readUserProperty(): Flow<TruckLoadEntity> {
         return truckLoadDao.readUserProperty()
     }
+
+    suspend fun insertUser(userTruckLoadEntity: TruckLoadEntity) {
+        return truckLoadDao.insertNewUser(userTruckLoadEntity)
+    }
+    suspend fun deleteUser() {
+        return truckLoadDao.removeSavedUser()
+    }
 }

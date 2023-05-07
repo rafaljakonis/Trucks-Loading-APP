@@ -19,13 +19,7 @@ class SharedViewModel @Inject constructor(
 ) : AndroidViewModel(application) {
 
     val app = application
-
-    var chipSubstitute: Boolean = false
-    var chipLoading: Boolean = false
-    var chipPutAway: Boolean = false
-
     var orderArrayList: ArrayList<Task> =arrayListOf()
-
     lateinit var user: User
 
     fun saveFirstLaunch(firstLaunch: Boolean) {

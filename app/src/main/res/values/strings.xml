@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Trucks Load</string>
+    <string name="app_name">Załadunek</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="next">Dalej</string>
@@ -30,4 +30,9 @@
 
     <string name="lack_of_data">Brak danych</string>
     <string name="scan_qr_code">Zeskanuj kod QR</string>
+    <string name="make_photo">Zrób zdjęcie</string>
+    <string name="wrong_qr_code">Błędny kod</string>
+    <string name="scanned_stopped">Nie zeskanowano kodu</string>
+    <string name="success_save">Zapisywanie powiodło się</string>
+    <string name="lack_of_internet">Brak połączenia z internetem</string>
 </resources>
