@@ -118,6 +118,7 @@ class MainViewModel @Inject constructor(
             response.body().toString().isEmpty() -> {
                 return NetworkResult.Error("Wystąpił problem z serwerem")
             }
+
             response.isSuccessful -> {
                 val foodRecipes = response.body()
                 return NetworkResult.Success(foodRecipes!!)
@@ -138,11 +139,10 @@ class MainViewModel @Inject constructor(
                 activeOrdersResponse.value =
                     handleResponse(response) as NetworkResult<ArrayList<Task>>
             } catch (e: Exception) {
-                Log.i("API", e.message.toString())
-                activeOrdersResponse.value = NetworkResult.Error("Recipes not found.")
+                activeOrdersResponse.value = NetworkResult.Error("Wystąpił problem")
             }
         } else {
-            activeOrdersResponse.value = NetworkResult.Error("No Internet Connection.")
+            activeOrdersResponse.value = NetworkResult.Error("Brak połączenia z internetem")
         }
     }
 
@@ -155,7 +155,7 @@ class MainViewModel @Inject constructor(
                 return NetworkResult.Error("API Key Limited.")
             }
             response.body().toString().isEmpty() -> {
-                return NetworkResult.Error("Recipes not found.")
+                return NetworkResult.Error("Wystąpił problem")
             }
             response.isSuccessful -> {
                 val foodRecipes = response.body()
@@ -177,10 +177,10 @@ class MainViewModel @Inject constructor(
                     handleResponse(response) as NetworkResult<BooleanResult>
             } catch (e: Exception) {
                 Log.i("API", e.message.toString())
-                assignOrderToUserResponse.value = NetworkResult.Error("Recipes not found.")
+                assignOrderToUserResponse.value = NetworkResult.Error("Wystąpił problem")
             }
         } else {
-            assignOrderToUserResponse.value = NetworkResult.Error("No Internet Connection.")
+            assignOrderToUserResponse.value = NetworkResult.Error("Brak połączenia z internetem")
         }
     }
 
@@ -193,10 +193,10 @@ class MainViewModel @Inject constructor(
                 cancelOrderResponse.value = handleResponse(response) as NetworkResult<BooleanResult>
             } catch (e: Exception) {
                 Log.i("API", e.message.toString())
-                cancelOrderResponse.value = NetworkResult.Error("Recipes not found.")
+                cancelOrderResponse.value = NetworkResult.Error("Wystąpił problem")
             }
         } else {
-            cancelOrderResponse.value = NetworkResult.Error("No Internet Connection.")
+            cancelOrderResponse.value = NetworkResult.Error("Brak połączenia z internetem")
         }
     }
 
@@ -209,10 +209,10 @@ class MainViewModel @Inject constructor(
                 finishOrderResponse.value = handleResponse(response) as NetworkResult<BooleanResult>
             } catch (e: Exception) {
                 Log.i("API", e.message.toString())
-                finishOrderResponse.value = NetworkResult.Error("Recipes not found.")
+                finishOrderResponse.value = NetworkResult.Error("Wystąpił problem")
             }
         } else {
-            finishOrderResponse.value = NetworkResult.Error("No Internet Connection.")
+            finishOrderResponse.value = NetworkResult.Error("Brak połączenia z internetem")
         }
     }
 
@@ -226,10 +226,10 @@ class MainViewModel @Inject constructor(
                     handleResponse(response) as NetworkResult<BooleanResult>
             } catch (e: Exception) {
                 Log.i("API", e.message.toString())
-                scannedElementResponse.value = NetworkResult.Error("Recipes not found.")
+                scannedElementResponse.value = NetworkResult.Error("Wystąpił problem")
             }
         } else {
-            scannedElementResponse.value = NetworkResult.Error("No Internet Connection.")
+            scannedElementResponse.value = NetworkResult.Error("Brak połączenia z internetem")
         }
     }
 
@@ -242,10 +242,10 @@ class MainViewModel @Inject constructor(
                 uploadPhotoResponse.value = handleResponse(response) as NetworkResult<BooleanResult>
             } catch (e: Exception) {
                 Log.i("API", e.message.toString())
-                uploadPhotoResponse.value = NetworkResult.Error("Recipes not found.")
+                uploadPhotoResponse.value = NetworkResult.Error("Wystąpił problem")
             }
         } else {
-            uploadPhotoResponse.value = NetworkResult.Error("No Internet Connection.")
+            uploadPhotoResponse.value = NetworkResult.Error("Brak połączenia z internetem")
         }
     }
 
@@ -257,11 +257,10 @@ class MainViewModel @Inject constructor(
                 val response = repository.remote.getOperatedOrder(userId)
                 operatedOrderResponse.value = handleResponse(response) as NetworkResult<ArrayList<Task>>
             } catch (e: Exception) {
-                Log.i("API", e.message.toString())
-                operatedOrderResponse.value = NetworkResult.Error("Recipes not found.")
+                operatedOrderResponse.value = NetworkResult.Error("Wystąpił problem")
             }
         } else {
-            operatedOrderResponse.value = NetworkResult.Error("No Internet Connection.")
+            operatedOrderResponse.value = NetworkResult.Error("Brak połączenia z internetem")
         }
     }
 
